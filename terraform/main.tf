@@ -30,6 +30,5 @@ variable "db_password" {
 }
 
 variable "embedding_api_url" {
-  description = "Modal embedding API URL"
-  default     = "https://hellosaksham--docpilot-embedder-model-embedding-webhook.modal.run"
+  description = "Modal embedding API URL (e.g., https://USERNAME--docpilot-embedder-model-embedding-webhook.modal.run)"
 }
