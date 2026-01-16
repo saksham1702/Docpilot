@@ -1,0 +1,7 @@
+# Example terraform.tfvars (DO NOT COMMIT)
+# Copy this to terraform.tfvars and fill in your values
+
+aws_region        = "us-east-1"
+project_name      = "docpilot"
+db_password       = "YOUR_SECURE_PASSWORD_HERE"
+embedding_api_url = "https://hellosaksham--docpilot-embedder-model-embedding-webhook.modal.run"

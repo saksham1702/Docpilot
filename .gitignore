@@ -4,3 +4,9 @@ __pycache__/
 .env
 uvicorn.log
 jenkins/
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+terraform.tfvars
