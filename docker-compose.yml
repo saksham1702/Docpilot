@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./backend
+    container_name: docpilot-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - ENVIRONMENT=development
+      - DATABASE_URL=postgresql://user:password@db/docpilot
+      - EMBEDDING_API_URL=https://hellosaksham--docpilot-embedder-model-embedding-webhook.modal.run
+    networks:
+      - docpilot-net
+    depends_on:
+      - db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  worker:
+    build:
+      context: ./worker
+    container_name: docpilot-worker
+    volumes:
+      - ./worker:/app
+    environment:
+      - DATABASE_URL=postgresql://user:password@db/docpilot
+      - EMBEDDING_API_URL=https://hellosaksham--docpilot-embedder-model-embedding-webhook.modal.run
+    networks:
+      - docpilot-net
+    dns:
+      - 8.8.8.8
+    depends_on:
+      - db
+
+  db:
+    image: ankane/pgvector
+    container_name: docpilot-db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: docpilot
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - docpilot-net
+
+
+networks:
+  docpilot-net:
+    driver: bridge
+
+volumes:
+  pgdata:
+
