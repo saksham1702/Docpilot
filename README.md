@@ -1,4 +1,4 @@
-# DocPilot 🚀
+# DocPilot 
 
 **Document-Verified Code Generation** - A RAG-powered system that searches official documentation and provides verified answers with citations.
 
