@@ -70,7 +70,7 @@ def scrape_and_store(url: str, library_name: str):
                 print(f"[STORED]")
                 return True
         else:
-            print(f"⚠️ {resp.status_code}")
+            print(f"[WARN] {resp.status_code}")
     except Exception as e:
         print(f"[ERROR] {e}")
     return False
