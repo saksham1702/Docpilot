@@ -111,7 +111,7 @@ async def docs_stats():
             data = response.json()
             return [TextContent(
                 type="text", 
-                text=f"📊 DocPilot Stats:\n- Total chunks: {data.get('total_chunks', 0)}\n- Libraries indexed: {data.get('total_libraries', 0)}"
+                text=f"DocPilot Stats:\n- Total chunks: {data.get('total_chunks', 0)}\n- Libraries indexed: {data.get('total_libraries', 0)}"
             )]
         else:
             return [TextContent(type="text", text=f"Error: {response.status_code}")]

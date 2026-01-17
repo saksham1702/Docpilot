@@ -15,16 +15,16 @@ def get_embedding(text: str):
         if resp.status_code == 200:
             return resp.json().get("embedding")
     except Exception as e:
-        print(f"❌ Embedding API error: {e}")
+        print(f"[ERROR] Embedding API error: {e}")
     return None
 
 def test_db_connection():
     try:
         conn = psycopg2.connect(DATABASE_URL)
-        print("✅ Connected to PostgreSQL successfully!")
+        print("[OK] Connected to PostgreSQL successfully!")
         conn.close()
     except Exception as e:
-        print(f"❌ Database connection failed: {e}")
+        print(f"[ERROR] Database connection failed: {e}")
 
 def discover_links(base_url: str, allowed_prefix: str):
     """Discover all documentation links from a page."""
@@ -40,12 +40,12 @@ def discover_links(base_url: str, allowed_prefix: str):
                 if full_url.startswith(allowed_prefix) and "#" not in full_url:
                     links.add(full_url)
     except Exception as e:
-        print(f"❌ Link discovery error: {e}")
+        print(f"[ERROR] Link discovery error: {e}")
     return links
 
 def scrape_and_store(url: str, library_name: str):
     """Scrape a documentation URL and store it with embeddings."""
-    print(f"🕷️ Scraping {url}...")
+    print(f"[SCRAPE] {url}...")
     try:
         resp = requests.get(url, timeout=15)
         if resp.status_code == 200:
@@ -53,7 +53,7 @@ def scrape_and_store(url: str, library_name: str):
             title = soup.title.string if soup.title else "No Title"
             text_content = soup.get_text(separator=" ", strip=True)[:2000]
             
-            print(f"📄 {title} ({len(text_content)} chars)")
+            print(f"[DOC] {title} ({len(text_content)} chars)")
             
             embedding = get_embedding(text_content)
             
@@ -67,12 +67,12 @@ def scrape_and_store(url: str, library_name: str):
                 conn.commit()
                 cur.close()
                 conn.close()
-                print(f"💾 Stored!")
+                print(f"[STORED]")
                 return True
         else:
             print(f"⚠️ {resp.status_code}")
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"[ERROR] {e}")
     return False
 
 def crawl_docs(start_url: str, library_name: str, allowed_prefix: str, max_pages: int = 50):
@@ -95,14 +95,14 @@ def crawl_docs(start_url: str, library_name: str, allowed_prefix: str, max_pages
         
         time.sleep(0.5)  # Be polite
     
-    print(f"✅ Crawled {count} pages for {library_name}")
+    print(f"[DONE] Crawled {count} pages for {library_name}")
     return count
 
 def run_worker():
     time.sleep(5)
     test_db_connection()
     
-    print("🚀 Starting Pathway docs crawl...")
+    print("[START] Starting Pathway docs crawl...")
     crawl_docs(
         start_url="https://pathway.com/developers/user-guide/introduction/welcome/",
         library_name="pathway",
@@ -110,7 +110,7 @@ def run_worker():
         max_pages=30
     )
     
-    print("✅ Crawling complete!")
+    print("[DONE] Crawling complete!")
     
     while True:
         print("Worker idle. Sleeping for 300 seconds...")

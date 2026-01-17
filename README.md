@@ -4,12 +4,12 @@
 
 ## Features
 
-- 🔍 **Vector Search**: Semantic search across indexed documentation using pgvector
-- 📚 **Multi-library Support**: Index multiple documentation sources
-- 🔗 **Citations**: Every answer includes source URLs
-- 🤖 **MCP Integration**: Works as a tool in Cursor/Claude
-- ☁️ **Cloud Ready**: Deployable to AWS with Terraform
-- 🚀 **CI/CD**: Auto-deploy with GitHub Actions
+- **Vector Search**: Semantic search across indexed documentation using pgvector
+- **Multi-library Support**: Index multiple documentation sources
+- **Citations**: Every answer includes source URLs
+- **MCP Integration**: Works as a tool in Cursor/Claude
+- **Cloud Ready**: Deployable to AWS with Terraform
+- **CI/CD**: Auto-deploy with GitHub Actions
 
 ## Architecture
 
