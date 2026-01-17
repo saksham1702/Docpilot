@@ -12,7 +12,7 @@ services:
     environment:
       - ENVIRONMENT=development
       - DATABASE_URL=postgresql://user:password@db/docpilot
-      - EMBEDDING_API_URL=https://hellosaksham--docpilot-embedder-model-embedding-webhook.modal.run
+      - EMBEDDING_API_URL=${EMBEDDING_API_URL:-https://YOUR_USERNAME--docpilot-embedder-model-embedding-webhook.modal.run}
     networks:
       - docpilot-net
     depends_on:
@@ -31,7 +31,7 @@ services:
       - ./worker:/app
     environment:
       - DATABASE_URL=postgresql://user:password@db/docpilot
-      - EMBEDDING_API_URL=https://hellosaksham--docpilot-embedder-model-embedding-webhook.modal.run
+      - EMBEDDING_API_URL=${EMBEDDING_API_URL:-https://YOUR_USERNAME--docpilot-embedder-model-embedding-webhook.modal.run}
     networks:
       - docpilot-net
     dns:
