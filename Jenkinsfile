@@ -10,7 +10,7 @@ pipeline {
             steps {
                 checkout scm
                 sh 'ls -la'
-                sh 'echo "✅ Checkout complete"'
+                sh 'echo "Checkout complete"'
             }
         }
         
@@ -38,7 +38,7 @@ pipeline {
         stage('Deploy Info') {
             steps {
                 sh '''
-                    echo "🚀 Deployment Info:"
+                    echo " Deployment Info:"
                     echo "   - Build Number: ${BUILD_NUMBER}"
                     echo "   - Branch: master"
                     echo "   - Ready for deployment!"

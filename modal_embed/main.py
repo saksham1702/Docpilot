@@ -15,9 +15,9 @@ with image.imports():
 class Model:
     @modal.enter()
     def load_model(self):
-        print("🥶 Loading model...")
+        print(" Loading model...")
         self.model = SentenceTransformer("all-MiniLM-L6-v2")
-        print("🔥 Model loaded!")
+        print(" Model loaded!")
     
     @modal.method()
     def embed_text(self, text: str):
